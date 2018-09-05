@@ -65,6 +65,7 @@ class Connection(object):
 
 connection = Connection()  
 
+
 def connect(*args, **kwargs):
     """ The connect function """
     return connection.connect(*args, **kwargs)

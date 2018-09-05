@@ -25,7 +25,6 @@ class Query:
         q_all = connection.execute(select_all)
         return q_all.fetchall()
 
-
     def order_by(self, order_arg):
         field_list = self.field_parse()
         select = '''SELECT {} FROM {} ORDER BY {}'''.format(
@@ -86,7 +85,7 @@ class Query:
     def get_filter_args(self, kwargs):
         filter_args = []
         for k, v in kwargs.items():
-            filter_args.append(k + '=' + '"' + v  + '"' )
+            filter_args.append(k + '=' + '"' + v + '"')
         return filter_args
 
     def between(self, *args):
@@ -98,10 +97,8 @@ class Query:
                          ' AND '.join(b_args[1:]))
             select = connection.execute(select)
             return select.fetchall()
-            
         except TypeError:
             pass
-        
 
     def get_between_ars(self, args):
         b_args = [i for i in args]
@@ -115,7 +112,8 @@ class Query:
         if field in self.model_field().keys() and self.model_field()[field].lower() == 'integer':
             return b_args
         else:
-            logging.info('Недопустимый тип аргументов! Поле сортировки должно быть INTEGER.')
+            logging.info(
+                'Недопустимый тип аргументов! Поле сортировки должно быть INTEGER.')
 
 
 

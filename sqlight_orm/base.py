@@ -9,7 +9,7 @@ logging.basicConfig(format=u' %(message)s', level=logging.INFO)
 class Base:
 
     query_class = Query
-  
+
     def __init__(self, *args, **kwargs):
 
         self.args = args
@@ -29,14 +29,17 @@ class Base:
                 if value.__class__.__name__.lower() == 'foreignkey':
                     fkey_list.append(key)
                     fkey_list.append(value.__dict__['args'][0])
+                    self.foreign_keys_on()
         if fkey_list:
             fkey_string = 'FOREIGN KEY ({}) REFERENCES {}(id)'.format(
                 fkey_list[0], fkey_list[1])
             field_list.append(fkey_string)
         return field_list
 
-    def test(self):
-        return dict(self.__class__.__dict__)
+    def foreign_keys_on(self):
+        f = '''PRAGMA foreign_keys = ON'''
+        connection.execute(f)
+        connection.commit()
 
     def get_table_name(self):
         return self.__class__.__name__
@@ -125,7 +128,7 @@ class Base:
         else:
             table = '''DELETE FROM {}'''.format(table_name)
         connection.execute(table)
-        
+
     @decorators.classproperty
     def query(cls):
         query_class = cls.query_class

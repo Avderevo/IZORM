@@ -96,11 +96,12 @@ class Query:
             select = '''SELECT {} FROM {} WHERE {} BETWEEN {}'''.format(
                         field_list, self.table_name, b_args[0],
                          ' AND '.join(b_args[1:]))
+            select = connection.execute(select)
+            return select.fetchall()
             
         except TypeError:
             pass
-        select = connection.execute(select)
-        return select.fetchall()
+        
 
     def get_between_ars(self, args):
         b_args = [i for i in args]

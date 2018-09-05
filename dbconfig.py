@@ -2,15 +2,6 @@ import sqlite3
 import logging
 
 
-class NullHandler(logging.Handler):
-    """
-    This ensures that the library doesn't throw out a message if
-    no logging is specified.
-    """
-    def emit(self, record):
-        pass
-
-
 logging.basicConfig(format=u' %(message)s', level=logging.INFO)
 
 
@@ -49,8 +40,8 @@ class Connection(object):
     @property
     def cursor(self):
 
-        if self._cursor:
-            self._cursor.close()
+#        if self._cursor:
+#            self._cursor.close()
         self._cursor = self.connection.cursor()
         return self._cursor
 

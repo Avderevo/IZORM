@@ -1,4 +1,3 @@
-import sqlite3
 import decorators
 import logging
 from query import Query
@@ -89,24 +88,44 @@ class Base:
         else:
             logging.info('Нет значений для записи в таблицу!')
 
-    def update(self, filters):
+    def update(self, **kwargs):
         table_name = self.get_table_name()
-        table_args = self.get_arg_table()
-        if kwargs:
-            update_filter = self.get_update_filter(filters)
-            table = '''UPDATE {} SET {} WHERE {}'''.format(table_name, table_args, update_filter)
-            connection.execute(table)
-            connection.commit()
 
+        table_args = self.get_update_args()
+
+        if kwargs:
+            update_filter = self.get_update_filter(kwargs)
+            table = '''UPDATE {} SET {} WHERE {}'''.format(
+                table_name, ', '.join(table_args), update_filter)
+        else:
+            table = '''UPDATE {} SET {}'''.format(
+                table_name, ', '.join(table_args))
+        connection.execute(table)
+        connection.commit()
 
     def get_update_filter(self, kwargs):
         update_filter = []
         for k, v in kwargs.items():
-            update_filter =  ' = ' + '"' + v + '"'
+            update_filter = k + '=' + '"' + v + '"'
         return update_filter
 
+    def get_update_args(self):
+        update_args = []
+        for k, v in dict(self.__dict__)['kwargs'].items():
+            arg = k + '=' + '"' + v + '"'
+            update_args.append(arg)
+        return update_args
 
-
+    def delete(self, **kwargs):
+        table_name = self.get_table_name()
+        if kwargs:
+            delete_filter = self.get_update_filter(kwargs)
+            table = '''DELETE FROM {} WHERE {}'''.format(
+                table_name, delete_filter)
+        else:
+            table = '''DELETE FROM {}'''.format(table_name)
+        connection.execute(table)
+        
     @decorators.classproperty
     def query(cls):
         query_class = cls.query_class

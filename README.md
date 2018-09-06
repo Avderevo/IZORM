@@ -159,9 +159,22 @@ All querys to the database go after ```any table name.query```
 - between()
 - all()
 
+
+## all()
+
+
+```all()``` - returns all values from the table()
+
+example:
+
+```
+User.query.all()
+```
+
+
 ## field()
 
-__field()__ - always goes after the ```query``` and is never an independent query.
+```field()``` - always goes after the ```query``` and is never an independent query.
 Accepts field names in arguments. If there are no arguments, then returns all the fields.
 ```field()``` is not required, if not, then all fields will be returned.
 
@@ -178,7 +191,7 @@ same
 
 ## filter()
 
-__filter()__ - is an independent object of the question. It can go after the ```query``` or after the ```field()```
+```filter()``` - is an independent object of the question. It can go after the ```query``` or after the ```field()```
 filter takes arguments (field name = value)
 
 example:
@@ -191,6 +204,8 @@ User.query.field('fullname').filter(name='Alex')
 ## order_by()
 
 ```order_by``` -  sorts the result by the specified field.
+
+example:
 ```
 User.query.field('fullname').order_by('id')
 ```
@@ -204,6 +219,24 @@ User.query.field('fullname').order_by('id')
 
 
 ## between()
+
+```between()``` - returns the result from the selection by sort field
+
+takes three arguments:
+
+1. sort field
+2. sorting start
+3. sorting finish
+
+example:
+
+```
+User.query.between('id',5, 9)
+User.query.field('fullname').between('id', 2, 5)
+
+```
+
+
 
 
 

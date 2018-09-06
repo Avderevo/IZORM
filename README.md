@@ -194,35 +194,48 @@ same
 ```filter()``` - is an independent object of the question. It can go after the ```query``` or after the ```field()```
 filter takes arguments (field name = value)
 
+
 example:
 
-'''
+
+```
 User.query.filter(id='3')
 User.query.field('fullname').filter(name='Alex')
-'''
+```
 
 ## order_by()
 
+
 ```order_by``` -  sorts the result by the specified field.
 
+
 example:
+
+
 ```
 User.query.field('fullname').order_by('id')
 ```
 
 ## order_by_desc()
 
+
 ```order_by_desc``` - sorts the result by the specified field but in the reverse order
 
+
 ## order_by_asc()
+
+
 ```order_by_asc()``` - same ```order_by()```  but with an explicit indication of the sorting
 
 
 ## between()
 
+
 ```between()``` - returns the result from the selection by sort field
 
+
 takes three arguments:
+
 
 1. sort field
 2. sorting start

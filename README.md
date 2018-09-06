@@ -145,8 +145,65 @@ book1 = Books(title='Love of Life', auth_id='1')
 book1.save()
 ```
 
+# Description of queries
+
+All querys to the database go after ```any table name.query```
+
+## query objects:
+
+- field()
+- filter()
+- order_by()
+- order_by_desc()
+- order_by_asc()
+- between()
+- all()
+
+## field()
+
+__field()__ - always goes after the ```query``` and is never an independent query.
+Accepts field names in arguments. If there are no arguments, then returns all the fields.
+```field()``` is not required, if not, then all fields will be returned.
+
+example:
+
+```User.query.field('name', 'fullname').order_by('age')```
+
+``` User.query.field().filter(name='Olivia')``` 
+same
+
+```User.query.filter(name='Olivia')```
 
 
+
+## filter()
+
+__filter()__ - is an independent object of the question. It can go after the ```query``` or after the ```field()```
+filter takes arguments (field name = value)
+
+example:
+
+'''
+User.query.filter(id='3')
+User.query.field('fullname').filter(name='Alex')
+'''
+
+## order_by()
+
+```order_by``` -  sorts the result by the specified field.
+```
+User.query.field('fullname').order_by('id')
+```
+
+## order_by_desc()
+
+```order_by_desc``` - sorts the result by the specified field but in the reverse order
+
+## order_by_asc()
+```order_by_asc()``` - same ```order_by()```  but with an explicit indication of the sorting
+
+
+## between()
 
 
 

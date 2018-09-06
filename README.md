@@ -106,7 +106,47 @@ Deleting all fields:
 ```
 user = User()
 user.delete()
-'''
+```
+	
+# Use Foreign Key
+
+Creating  Models:
+
+```
+class  Author(Base):
+    id = Integer(primary_key=True)
+    name = String(nulable=False)
+    age = Integer(nulable=True)
+    
+    
+class Books(Base):
+    id = Integer(primary_key=True)
+    title = String(nulable=False)
+    auth_id = ForeignKey('Author')
+    
+```
+
+Creating a table in the database:
+
+```
+auth = Author()
+auth.create()
+
+book = Books()
+book.create()
+```
+Saving data to a table:
+
+```
+auth1 = Author(id='1', name='Jack London', age='40')
+auth1.save()
+
+book1 = Books(title='Love of Life', auth_id='1')
+book1.save()
+```
+
+
+
 
 
 

@@ -251,8 +251,8 @@ User.query.field('fullname').between('id', 2, 5)
 
 ## Requirements:
 
-python 3.5+
-sqlite3
+- python 3.5+
+- sqlite3
 
 
 

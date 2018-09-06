@@ -101,7 +101,7 @@ user = User()
 user.delete(id='2')
 ```
 
-Deleting all fields:
+*__Deleting all fields:__* :skull:
 
 ```
 user = User()

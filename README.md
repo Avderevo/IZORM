@@ -58,13 +58,13 @@ user.create()
 ## 4  Saving data to a table
 
 ```
-u1 = User(name='', fullname='', age='32')
+u1 = User(name='Olivia', fullname='Smith', age='32')
 u1.save()
 
-u2 = User(name='', fullname='', age='15')
+u2 = User(name='Alex', fullname='Miller', age='15')
 u2.save()
 
-u3 = User(name='', fullname='', age='45')
+u3 = User(name='Daniel', fullname='Evans', age='45')
 u3.save()
 ```
 ## 5  Querying data from a table
@@ -72,7 +72,7 @@ u3.save()
 ```
 User.query.all()
 
-User.query.filter(name='')
+User.query.filter(name='Olivia')
 
 User.query.filed('name', 'fullname').order_by('age')
 
@@ -88,7 +88,7 @@ User.query.field('fullname').filter(id='3')
 ## 6  Update
 
 ```
-user = User(name='', fullname='', age='27')
+user = User(name='Jacob', fullname='Brown', age='27')
 user.update(id='3')
 ```
 **_if   ``user.update()``   will be without arguments then all fields of the table will be updated_**

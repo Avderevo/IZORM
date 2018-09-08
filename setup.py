@@ -14,12 +14,12 @@ setup(
     classifiers=[
         'Development Status :: 1 - Alpha',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.5.2',
     ],
     keywords='orm sqlite',
     author='Yury Avdeev',
     author_email='avdevman@gmail.com',
     license='MIT',
-    python_requires='>=3.5',
+    python_requires='>=3.5.2',
     zip_safe=False
 )

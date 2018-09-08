@@ -2,6 +2,13 @@
 
 Simple SQLite orm for Python
 
+
+## Requirements:
+
+- python 3.5+
+- sqlite3
+
+
 ## Installation
 
 Create a new directory and clone the application.
@@ -248,11 +255,6 @@ User.query.between('id',5, 9)
 User.query.field('fullname').between('id', 2, 5)
 
 ```
-
-## Requirements:
-
-- python 3.5+
-- sqlite3
 
 
 

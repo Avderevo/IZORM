@@ -1,4 +1,4 @@
-import decorators
+import decoratorms
 import logging
 from query import Query
 from dbconfig import connection
@@ -129,7 +129,7 @@ class Base:
             table = '''DELETE FROM {}'''.format(table_name)
         connection.execute(table)
 
-    @decorators.classproperty
+    @decoratorms.classproperty
     def query(cls):
         query_class = cls.query_class
         return query_class(orm_class=cls)

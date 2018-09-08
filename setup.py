@@ -4,9 +4,6 @@ import sys
 from setuptools import setup, find_packages
 from os.path import join, dirname
 
-if not sys.version_info[0] == 3 and sys.version_info[0] == 6:
-    sys.exit("Sorry, need Python >= 3.6")
-
 setup(
     name='IZORM',
     version='0.1',

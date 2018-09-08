@@ -13,7 +13,14 @@ Simple SQLite orm for Python
 
 ## Installation
 
-Create a new directory and clone the application.
+install the application:
+
+```
+$ pip3 install git+https://github.com/Avderevo/IZORM
+
+```
+
+or create a new directory and clone the application.
 
 ```
 $ git clone https://github.com/Avderevo/IZORM

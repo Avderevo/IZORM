@@ -9,6 +9,7 @@ setup(
     version='0.1',
     packages=find_packages(),
     long_description=open(join(dirname(__file__), 'README.md')).read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/Avderevo/IZORM',
     description='Simple SQLite orm for Python',
     classifiers=[

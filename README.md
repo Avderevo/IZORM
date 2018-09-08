@@ -1,3 +1,4 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Avderevo/IZORM/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Avderevo/IZORM/?branch=master)
 # IZORM
 
 Simple SQLite orm for Python

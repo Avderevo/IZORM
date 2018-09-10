@@ -266,6 +266,6 @@ User.query.field('fullname').between('id', 2, 5)
 ```
 
 
-
+#### Author - Yury Avdeev.
 
     

@@ -2,6 +2,7 @@ import decoratorms
 import logging
 from query import Query
 from dbconfig import connection
+from exception import QueryFieldException, EmptyArgsException
 
 logging.basicConfig(format=u' %(message)s', level=logging.INFO)
 
@@ -36,6 +37,14 @@ class Base:
             field_list.append(fkey_string)
         return field_list
 
+    def get_list_fields(self):
+        fields_list = []
+        class_dict = dict(self.__class__.__dict__)
+        for key, value in class_dict.items():
+            if not key.startswith('__'):
+                fields_list.append(str(key))
+        return fields_list
+
     def foreign_keys_on(self):
         f = '''PRAGMA foreign_keys = ON'''
         connection.execute(f)
@@ -53,16 +62,15 @@ class Base:
         connection.commit()
 
     def get_arg_table(self):
+        table_args = None
         arg_dict = dict(self.__dict__)
-        if len(arg_dict['args']) != 0:
-            table_args = self.get_arg_from_typle(arg_dict['args'])
-        elif len(arg_dict['kwargs']) != 0:
+        if len(arg_dict['args']):
+            table_args = self.get_arg_from_tuple(arg_dict['args'])
+        if len(arg_dict['kwargs']):
             table_args = self.get_arg_from_dict(arg_dict['kwargs'])
-        else:
-            table_args = None
         return table_args
 
-    def get_arg_from_typle(self, args):
+    def get_arg_from_tuple(self, args):
         arg_list = ['"' + str(i) + '"' for i in args]
         return arg_list
 
@@ -72,7 +80,7 @@ class Base:
         for key, value in args.items():
             list_fild_names.append(str(key))
             list_fild_args.append(str(value))
-        list_fild_args = self.get_arg_from_typle(list_fild_args)
+        list_fild_args = self.get_arg_from_tuple(list_fild_args)
         return (list_fild_names, list_fild_args,)
 
     def save(self):
@@ -90,6 +98,7 @@ class Base:
             connection.commit()
         else:
             logging.info('Нет значений для записи в таблицу!')
+            raise EmptyArgsException('No values to write to the table!')
 
     def update(self, **kwargs):
         table_name = self.get_table_name()
@@ -109,7 +118,15 @@ class Base:
     def get_update_filter(self, kwargs):
         update_filter = []
         for k, v in kwargs.items():
-            update_filter = k + '=' + '"' + v + '"'
+            if k in self.get_list_fields():
+                update_filter = k + '=' + '"' + v + '"'
+            else:
+                logging.info(
+                    'В модели отсутствует указаное поле сортировки:{}'.format(
+                        kwargs.keys()))
+                raise QueryFieldException(
+                    'The model does not have the indicated sorting field {}'.format(
+                        kwargs.keys()))
         return update_filter
 
     def get_update_args(self):

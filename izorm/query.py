@@ -1,10 +1,17 @@
 from dbconfig import connection
+from exception import QueryFieldException
 
 import logging
 logging.basicConfig(format=u' %(message)s', level=logging.INFO)
 
 
 class Query:
+
+    '''
+    The query class for querying our database.
+    All methods of the class are written after the "query" instance.
+    For example: User.query.filter(name='some name').
+    '''
     def __init__(self, orm_class=None, *args, **kwargs):
 
         self.orm_class = orm_class
@@ -47,14 +54,15 @@ class Query:
         return select.fetchall()
 
     def get_field_list(self, field):
-        if len(field) > 0:
+        field_list = None
+        if len(field):
             field_list = [str(i) for i in field]
             for fild in field_list:
                 if fild not in self.model_field().keys():
-                    logging.info('Не допустимые аргументы поля field!')
-                    break
-        else:
-            field_list = None
+                    logging.info(
+                        'Поле "{}" отсутствует в модели!'.format(fild))
+                    raise QueryFieldException(
+                        'The model does not have the indicated sorting field "{}"'.format(fild))
         return field_list
 
     def field(self, *field):
@@ -98,7 +106,8 @@ class Query:
             select = connection.execute(select)
             return select.fetchall()
         except TypeError:
-            pass
+            logging.info(
+                'Недопустимый тип аргументов!')
 
     def get_between_ars(self, args):
         b_args = [i for i in args]
@@ -114,6 +123,4 @@ class Query:
         else:
             logging.info(
                 'Недопустимый тип аргументов! Поле сортировки должно быть INTEGER.')
-
-
-
+            raise QueryFieldException('The sort field must be INTEGER.')

@@ -40,8 +40,6 @@ class Connection(object):
     @property
     def cursor(self):
 
-#        if self._cursor:
-#            self._cursor.close()
         self._cursor = self.connection.cursor()
         return self._cursor
 
@@ -63,12 +61,13 @@ class Connection(object):
         self.close()
 
 
-connection = Connection()  
+connection = Connection()
 
 
 def connect(*args, **kwargs):
     """ The connect function """
     return connection.connect(*args, **kwargs)
+
 
 def cursor():
     """ The cursor function """

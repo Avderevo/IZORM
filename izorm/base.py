@@ -54,8 +54,6 @@ class Base:
                 fields_list.append(str(key))
         return fields_list
 
-        return fields_list
-
     def foreign_keys_on(self):
         f = sqlines.PRAGMA
         connection.execute(f)
